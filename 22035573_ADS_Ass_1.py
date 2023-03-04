@@ -59,15 +59,20 @@ def create_line_plot(data, countries):
                  label=country)
     
     # set the upper and lower limits of x
-    plt.xlim(1900, 2020)
+    #plt.xlim(1900, 2020)
     
     # Set labels, title to the plot.
     plt.xlabel('Years')
-    plt.ylabel('Goals Scored')
+    plt.ylabel('Goals Scored as Home Team')
     plt.title('Number of Goals Scored by Countries Over the Years')
     
-    # show legend and display the plot
+    # show legend
     plt.legend()
+    
+    # Save the figure
+    #plt.savefig("Goals-Scored.png")
+    
+    # Display the plot
     plt.show()
 
 
@@ -90,10 +95,15 @@ def plot_histogram(data, variable):
     plt.xlabel("Median value of owner-occupied homes in $1000s")
     plt.ylabel("Frequency")
     
-    # show legend and display the plot
+    # show legend
     plt.legend()
-    plt.show()
     
+    # Save the figure
+    #plt.savefig("Median-Values.png")
+    
+    # Display the plot
+    plt.show()
+
 
 def create_boxplot(df, group_var, value_var):
     """
@@ -128,9 +138,9 @@ def create_boxplot(df, group_var, value_var):
     # Plot the boxplot according to above details
     ax.boxplot(boxplot_data, boxprops=bp, whiskerprops=wp, capprops=cp, 
                medianprops=mp, flierprops=fp)
-
+    
     # set the x-axis tick labels to be the group values
-    ax.set_xticklabels(group_values)
+    ax.set_xticklabels(group_values))
     
     # set x-axis and y-axis labels
     ax.set_xlabel("Index of accessibility to radial highways")
@@ -138,6 +148,10 @@ def create_boxplot(df, group_var, value_var):
 
     # add a title to the plot
     ax.set_title(f'Boxplot of {value_var} grouped by {group_var}')
+    
+    
+    # Save the figure
+    #plt.savefig("Medv-by-Rad.png")
 
     # display the plot
     plt.show()
@@ -187,6 +201,4 @@ df_data_bp = pd.read_csv(url)
 
 # Call the create_boxplot function for 'rad', 'medv' variable in dataset
 create_boxplot(df_data_bp, 'rad', 'medv')
-
-
 
