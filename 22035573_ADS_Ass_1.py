@@ -200,3 +200,4 @@ df_data_bp = pd.read_csv(url)
 
 # Call the create_boxplot function for 'rad', 'medv' variable in dataset
 create_boxplot(df_data_bp, 'rad', 'medv')
+
