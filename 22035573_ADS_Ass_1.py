@@ -28,17 +28,17 @@ def filter_data(data, country):
     Returns:
         pandas.DataFrame: The filtered data.
     """
-    
+
     # Filters the data of the country.
     filtered_data = data.loc[data['home_team'] == country]
-    
+
     # Extract year from date and create new column.
     filtered_data['year'] = pd.to_datetime(filtered_data['date']).dt.year
-    
+
     # Aggregates the goals scored by year
-    filtered_data = filtered_data.groupby('year').agg({'home_score': 
+    filtered_data = filtered_data.groupby('year').agg({'home_score':
                                                        'sum'}).reset_index()
-    
+
     return filtered_data
 
 
@@ -55,23 +55,23 @@ def create_line_plot(data, countries):
     plt.figure()
     for country in countries:
         filtered_data = filter_data(data, country)
-        plt.plot(filtered_data['year'], filtered_data['home_score'], 
+        plt.plot(filtered_data['year'], filtered_data['home_score'],
                  label=country)
-    
+
     # set the upper and lower limits of x
     #plt.xlim(1900, 2020)
-    
+
     # Set labels, title to the plot.
     plt.xlabel('Years')
     plt.ylabel('Goals Scored as Home Team')
     plt.title('Number of Goals Scored by Countries Over the Years')
-    
+
     # show legend
     plt.legend()
-    
+
     # Save the figure
-    #plt.savefig("Goals-Scored.png")
-    
+    plt.savefig("Goals-Scored.png")
+
     # Display the plot
     plt.show()
 
@@ -79,28 +79,28 @@ def create_line_plot(data, countries):
 def plot_histogram(data, variable):
     """
     Create a histogram of a given variable in a DataFrame.
-    
+
     Args:
         data(pandas.DataFrame): The input data.
         variable (str): The name of the variable to create a histogram for.
     """
-    
+
     # Plot the distribution as a histogram with 30 bins
-    plt.figure(figsize=(8,6))
-    plt.hist(data[variable], bins=30, label="medv", density=True, 
+    plt.figure(figsize=(8, 6))
+    plt.hist(data[variable], bins=30, label="medv", density=True,
              alpha=0.7, color='orange')
-    
+
     # Set labels, title to the plot.
     plt.title("Distribution of Median Home Values in Boston")
     plt.xlabel("Median value of owner-occupied homes in $1000s")
     plt.ylabel("Frequency")
-    
+
     # show legend
     plt.legend()
-    
+
     # Save the figure
-    #plt.savefig("Median-Values.png")
-    
+    plt.savefig("Median-Values.png")
+
     # Display the plot
     plt.show()
 
@@ -122,36 +122,35 @@ def create_boxplot(df, group_var, value_var):
     group_values = data[group_var].unique()
 
     # create a list of boxplot data, one for each group
-    boxplot_data = [data[data[group_var] == group][value_var] 
+    boxplot_data = [data[data[group_var] == group][value_var]
                     for group in group_values]
 
     # create a boxplot using Matplotlib
     fig, ax = plt.subplots(figsize=(8, 6))
-    
+
     # Adding colors to boxplot
     bp = dict(linestyle='-', linewidth=2.5, color='red')
     wp = dict(linestyle='--', linewidth=1.5, color='black')
     cp = dict(linestyle='-', linewidth=1.5, color='black')
     mp = dict(linestyle='-', linewidth=2.5, color='green')
     fp = dict(marker='o', markerfacecolor='blue', markersize=8, alpha=0.5)
-    
+
     # Plot the boxplot according to above details
-    ax.boxplot(boxplot_data, boxprops=bp, whiskerprops=wp, capprops=cp, 
+    ax.boxplot(boxplot_data, boxprops=bp, whiskerprops=wp, capprops=cp,
                medianprops=mp, flierprops=fp)
-    
+
     # set the x-axis tick labels to be the group values
-    ax.set_xticklabels(group_values))
-    
+    ax.set_xticklabels(group_values)
+
     # set x-axis and y-axis labels
     ax.set_xlabel("Index of accessibility to radial highways")
     ax.set_ylabel("Median value of owner-occupied homes in $1000s")
 
     # add a title to the plot
     ax.set_title(f'Boxplot of {value_var} grouped by {group_var}')
-    
-    
+
     # Save the figure
-    #plt.savefig("Medv-by-Rad.png")
+    plt.savefig("Medv-by-Rad.png")
 
     # display the plot
     plt.show()
@@ -201,4 +200,3 @@ df_data_bp = pd.read_csv(url)
 
 # Call the create_boxplot function for 'rad', 'medv' variable in dataset
 create_boxplot(df_data_bp, 'rad', 'medv')
-
